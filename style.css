@@ -91,7 +91,8 @@
 }
 .experience:hover{
     animation:boxanimation 0.5s forwards
-}.CAS{
+}
+.CAS{
     width:98%;
     border: 1px solid black;
     background: linear-gradient(to bottom, #666699 0%, #0000cc 100%);
@@ -105,7 +106,7 @@
     margin-bottom: 20px;
 }
 .CAS:hover{
-    animation:boxanimation 0.5s forwards
+    animation:boxanimation2 0.5s forwards
 }
 .whoIam{
     width:98%;
@@ -130,6 +131,18 @@
         box-shadow: 0 0 10px #fff, 0 0 10px #fff;
       }
       to {
+        rotate: 2deg;
+        box-shadow: 0 0 5px #000000, 0 0 10px #000000;
+      }
+}
+
+@keyframes boxanimation2 {
+    from {
+        rotate: 0deg;
+        box-shadow: 0 0 10px #fff, 0 0 10px #fff;
+      }
+      to {
+        rotate: -2deg;
         box-shadow: 0 0 5px #000000, 0 0 10px #000000;
       }
 }
