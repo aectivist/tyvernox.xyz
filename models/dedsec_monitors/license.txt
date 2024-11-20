@@ -1,0 +1,11 @@
+Model Information:
+* title:	DEDSEC Monitors
+* source:	https://sketchfab.com/3d-models/dedsec-monitors-712bf7b386d940ad9f8554254a22e583
+* author:	Zach.Harris1 (https://sketchfab.com/Zach.Harris1)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "DEDSEC Monitors" (https://sketchfab.com/3d-models/dedsec-monitors-712bf7b386d940ad9f8554254a22e583) by Zach.Harris1 (https://sketchfab.com/Zach.Harris1) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
