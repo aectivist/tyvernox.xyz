@@ -45,6 +45,7 @@ loader.load(
 );
 
 
+
 //Instantiate a new renderer and set its size
 const renderer = new THREE.WebGLRenderer({ alpha: true }); //Alpha: true allows for the transparent background
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -53,7 +54,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById("container3D").appendChild(renderer.domElement);
 
 camera.position.y = 2
-camera.position.z 
 
 const rgbeLoader = new RGBELoader();
 rgbeLoader.load('path_to_hdri.hdr', (texture) => {
@@ -79,18 +79,6 @@ topLight.shadow.camera.far = 100;
 renderer.physicallyCorrectLights = true;
 renderer.outputEncoding = THREE.sRGBEncoding;
 
-loader.load('path_to_model.gltf', (gltf) => {
-    const object = gltf.scene;
-    object.traverse((node) => {
-        if (node.isMesh) {
-            const texture = new THREE.TextureLoader().load('path_to_texture.jpg');
-            texture.flipY = false; // Important for GLTF compatibility
-            node.material.map = texture;
-            node.material.needsUpdate = true;
-        }
-    });
-    scene.add(object);
-}); 
 //This adds controls to the camera, so we can rotate / zoom it with the mouse
 if (objToRender === "japanese_street_at_night") {
   controls = new OrbitControls(camera, renderer.domElement);
@@ -145,3 +133,17 @@ tablinks.forEach(tablink => {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  const hiddenElements = document.querySelectorAll(".hidden");
+
+  const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target); // Stop observing once it's visible
+          }
+      });
+  });
+
+  hiddenElements.forEach((el) => observer.observe(el));
+});
