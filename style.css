@@ -243,7 +243,7 @@ a {
     animation: colorTransition 100s infinite alternate;
 }
 
-#CAS{
+#Project{
     width:99%;
     border: 1px solid black;
     background: linear-gradient(to bottom, #666699 0%, #0000cc 100%);
@@ -256,36 +256,31 @@ a {
     align-items    : center;
     margin-bottom: 20px;
 }
-#CAS:hover{
+#Project:hover{
     animation:boxanimation2 0.5s forwards
 }
 
 .projects{
     text-align: center;
 }
-#stockimg{
+.cr img {
+    width: 50vh;
     height: auto;
-    width: 30vw;
-    
+    transition: opacity 0.3s ease;
 }
-.creativity{
-    display: inline-block;
+
+.cr img.hover-image {
+    display: none;
 }
-.activity{
-    display: inline-block;
+
+.cr:hover img.default-image {
+    display: none;
 }
-.service{
-    display: inline-block;
+
+.cr:hover img.hover-image {
+    display: block;
 }
-#containernum23D canvas{
-    width:100% !important;
-    height: 60vh !important;
-    position:relative;
-    transition: rgb(34, 34, 34);
-    top: 0;
-    background-color: #87CEEB;
-    animation: colorTransition 100s infinite alternate;
-}
+
 
 @keyframes colorTransition {
     0% {
