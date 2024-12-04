@@ -1,10 +1,75 @@
-
 //Import the THREE.js library
 import * as THREE from 'https://cdn.skypack.dev/three@0.129.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/RGBELoader.js';
 
+// Loading Screen Setup
+const loadingScene = new THREE.Scene();
+const loadingCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const loadingRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+loadingRenderer.setSize(window.innerWidth, window.innerHeight);
+loadingRenderer.setPixelRatio(window.devicePixelRatio * 0.8); // Reduce resolution slightly
+loadingRenderer.setClearColor(0x000000, 0); // Set clear color with alpha
+loadingRenderer.powerPreference = "high-performance";
+document.querySelector('.loading-mask-container').appendChild(loadingRenderer.domElement);
+
+let loadingMask;
+const loadingMaskLoader = new GLTFLoader();
+loadingMaskLoader.load(
+  'models/joker_mask_persona_5/scene.gltf',
+  function (gltf) {
+    loadingMask = gltf.scene;
+    loadingMask.scale.set(1, 1, 1);
+    loadingMask.position.set(0, 0.58, 0);
+    
+    // Optimize the geometry
+    gltf.scene.traverse((child) => {
+      if (child.isMesh) {
+        child.frustumCulled = true; // Enable frustum culling
+        child.matrixAutoUpdate = false; // Disable automatic matrix updates
+      }
+    });
+    
+    loadingScene.add(loadingMask);
+    
+    // Simplified lighting
+    const loadingAmbientLight = new THREE.AmbientLight(0x7b0ab0, 3);
+    const loadingDirectionalLight = new THREE.DirectionalLight(0x7b0ab0, 4);
+    loadingDirectionalLight.position.set(0, 1, 0.2);
+    loadingScene.add(loadingAmbientLight, loadingDirectionalLight);
+  }
+);
+
+loadingCamera.position.set(0, 0.3, 0.8); // Fixed camera position
+
+let animationFrameId;
+
+function animateLoadingScreen() {
+  animationFrameId = requestAnimationFrame(animateLoadingScreen);
+  
+  if (loadingMask) {
+    if (loadingMask.scale.x < 30) {
+      const remainingDistance = 30 - loadingMask.scale.x;
+      // Reduced scaling speed for slower animation
+      const scalingSpeed = Math.max(0.1, remainingDistance * 0.08); // reduced from 0.3 to 0.1, and 0.15 to 0.08
+      const newScale = loadingMask.scale.x + scalingSpeed;
+      
+      loadingMask.scale.set(newScale, newScale, newScale);
+      loadingMask.updateMatrix();
+    }
+  }
+  loadingRenderer.render(loadingScene, loadingCamera);
+}
+
+// Clean up animation when loading is complete
+function stopLoadingAnimation() {
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+  }
+}
+
+animateLoadingScreen();
 
 //Create a Three.JS Scene
 const scene = new THREE.Scene();
@@ -31,8 +96,16 @@ const loader = new GLTFLoader();
 loader.load(
   `models/japanese_street_at_night/scene.gltf`,
   function (gltf) {
-    //If the file is loaded, add it to the scene
     object = gltf.scene;
+    
+    // Adjust material tint to be more subtle
+    object.traverse((child) => {
+      if (child.isMesh) {
+        child.material.emissive = new THREE.Color(0x2a0845);
+        child.material.emissiveIntensity = 0.1; // Reduced from 0.2
+      }
+    });
+    
     scene.add(object);
   },
   function (xhr) {
@@ -44,8 +117,6 @@ loader.load(
     console.error(error);
   }
 );
-
-
 
 //Instantiate a new renderer and set its size
 const renderer = new THREE.WebGLRenderer({ alpha: true }); //Alpha: true allows for the transparent background
@@ -63,14 +134,28 @@ rgbeLoader.load('path_to_hdri.hdr', (texture) => {
     scene.background = texture;  // Optional: Use HDRI as a background
 });
 
-//Add lights to the scene, so we can actually see the 3D model
-const topLight = new THREE.DirectionalLight(0xffffff, 3); // Brighter intensity
-topLight.position.set(4, 500, 10); // Place the light closer to the scene
-topLight.castShadow = true; // Enable shadows
+// Modified lighting setup for more dramatic Persona-like atmosphere
+const topLight = new THREE.DirectionalLight(0xffffff, 1.2);
+topLight.position.set(4, 500, 10);
+topLight.castShadow = true;
 scene.add(topLight);
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 1.5); // Intensity of 1.5
+// Deep purple ambient light
+const ambientLight = new THREE.AmbientLight(0x2a0845, 0.6);
 scene.add(ambientLight);
+
+// Red accent light from the side (Persona's signature red)
+const redAccent = new THREE.PointLight(0xff0000, 0.3);
+redAccent.position.set(-15, 5, 0);
+scene.add(redAccent);
+
+// Blue accent light (Persona's blue tones)
+const blueAccent = new THREE.PointLight(0x0077ff, 0.3);
+blueAccent.position.set(15, 5, 0);
+scene.add(blueAccent);
+
+// Mysterious fog effect
+scene.fog = new THREE.FogExp2(0x150522, 0.02);
 
 topLight.shadow.mapSize.width = 2048;
 topLight.shadow.mapSize.height = 2048;
@@ -95,11 +180,19 @@ function animate() {
 
   //Make the eye move
   if (object && objToRender === "japanese_street_at_night") {
-    //I've played with the constants here until it looked good 
+    const time = Date.now() * 0.001;
+    
+    // Existing movement
     object.rotation.y = 0 + mouseX / window.innerWidth * 0.2;
     object.rotation.x = -1.5 + mouseY * 0.3 / window.innerHeight;
+    object.position.y = Math.sin(time) * 0.1;
+    object.rotation.z = Math.sin(time * 0.5) * 0.05;
     
+    // Animate accent lights
+    redAccent.intensity = 0.3 + Math.sin(time) * 0.1;
+    blueAccent.intensity = 0.3 + Math.sin(time + Math.PI) * 0.1;
   }
+  
   renderer.render(scene, camera);
 }
 
@@ -117,7 +210,22 @@ document.onmousemove = (e) => {
 }
 
 //Start the 3D rendering
-animate();
+// animate();
+
+// Main content loading
+window.addEventListener('load', () => {
+  // Initialize your main Three.js scene and other resources here
+  // ...existing initialization code...
+
+  // Once everything is loaded, hide the loading screen
+  setTimeout(() => {
+    stopLoadingAnimation();
+    document.querySelector('.loading-screen').style.display = 'none';
+    document.querySelector('.main-content').classList.add('loaded');
+    // Start your main animation loop
+    animate();
+  }, 3000); // Minimum 3 seconds loading screen
+});
 
 // Create an audio object
 const hoverSound = new Audio('soundeffects/clickpersonasfx.mp3');

@@ -16,8 +16,17 @@
   </header>
   <div id="container3D2"></div>
     
+    <div class="login-trigger"></div>
+    <div class="login-form">
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login(document.getElementById('username').value, document.getElementById('password').value)">Login</button>
+    </div>
     
+    <div class="post-container" id="post-container"></div>
+    <div class="pagination"></div>
     
-    <script type="module" src="/pages/PostPage/PostScript.js"></script>
+    <button class="new-post-button" onclick="createPostPrompt()">New Post</button>
+    <script src="/pages/PostPage/PostScript.js"></script>
   </body>
 </html>

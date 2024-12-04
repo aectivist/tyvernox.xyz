@@ -1,0 +1,11 @@
+Model Information:
+* title:	Joker Mask Persona 5
+* source:	https://sketchfab.com/3d-models/joker-mask-persona-5-2c4a99ce4a764803b47849993cf2654b
+* author:	Josevan Danusastra (https://sketchfab.com/JosevanD2)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Joker Mask Persona 5" (https://sketchfab.com/3d-models/joker-mask-persona-5-2c4a99ce4a764803b47849993cf2654b) by Josevan Danusastra (https://sketchfab.com/JosevanD2) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

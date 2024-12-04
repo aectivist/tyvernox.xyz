@@ -80,59 +80,24 @@ a {
     padding: 0;
     margin: 0;
     border: 0;
-}
-.tabs{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    text-align: center;
-    background-color: rgb(0, 0, 0);
-    width: 100%;
-    height: 9vh;
-    overflow: hidden;
-    margin: 0;
-    padding: 0; 
-    height: 9vh; 
-    position:fixed;
-    z-index: 1;
-
+}.title {
+  font-family: 'Crimson Text', serif;
+  font-size: 10vh;
+  text-align: center;
+  margin-bottom: 0;
+  font-weight: bold;
+  color: #7b0ab0;
+  text-shadow: 2px 2px 4px rgba(123, 10, 176, 0.5);
+  transform: skew(-5deg);
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
 }
 
-.tablinks:link, .tablinks:visited{
-    color:azure;
-    font-size: 4vh;
-    padding:5%;
-    font-family:Lucida Console ;
-    text-decoration: none;
-    font-weight: bold;
-    
-
+.title:hover {
+  text-shadow: 4px 4px 8px rgba(123, 10, 176, 0.8);
+  transform: skew(-8deg) scale(1.05);
 }
 
-.tablinks:link:hover {
-    
-    -webkit-transition: background-color 100ms linear;
-    -ms-transition: background-color 100ms linear;
-    transition: background-color 100ms linear;
-    animation-name: tilt;
-    animation-duration: 0.6s ;
-    animation-fill-mode: forwards;
-    transform: scale(1);
-}
-
-
-@keyframes tilt {
-    0% {
-        rotate: 0deg;
-        background-color: black;
-        color: red;
-    }
-
-    100% {
-        rotate: 5deg;
-        background-color: #5b2fc3;
-    }
-}
 
 .body{
     margin: 0;

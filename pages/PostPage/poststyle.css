@@ -16,14 +16,30 @@
       format("woff2");
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 body {
     height: 100vh;
     margin: 0;
     font-family: "ubuntu", Arial, sans-serif;
     overflow-x: hidden;
     display: grid;
-  }
-  
+    background: linear-gradient(45deg, #000 25%, #1a1a1a 25%, #1a1a1a 50%, #000 50%, #000 75%, #1a1a1a 75%, #1a1a1a);
+    background-size: 4px 4px;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(93, 47, 195, 0.3) 0%, rgba(0,0,0,0.7) 100%);
+    z-index: -1;
+}
+
 a {
   text-decoration: none;
   color: #9ca0b1;
@@ -99,27 +115,23 @@ a {
 }
 
 .tablinks:link, .tablinks:visited{
-    color:azure;
+    position: relative;
+    color: #fff;
     font-size: 4vh;
-    padding:5%;
-    font-family:Lucida Console ;
+    padding: 5%;
+    font-family: 'Lucida Console';
     text-decoration: none;
     font-weight: bold;
-    
-
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px #7b0ab0;
 }
 
-.tablinks:link:hover {
-    
-    -webkit-transition: background-color 100ms linear;
-    -ms-transition: background-color 100ms linear;
-    transition: background-color 100ms linear;
-    animation-name: tilt;
-    animation-duration: 0.6s ;
-    animation-fill-mode: forwards;
-    transform: scale(1);
+.tablinks:hover {
+    color: #7b0ab0;
+    transform: skew(-10deg) scale(1.1);
+    text-shadow: 0 0 10px #7b0ab0;
+    background: rgba(123, 10, 176, 0.2);
 }
-
 
 @keyframes tilt {
     0% {
@@ -133,6 +145,7 @@ a {
         background-color: #5b2fc3;
     }
 }
+
 
 .body{
     margin: 0;
@@ -153,4 +166,237 @@ a {
     justify-content: center;
     align-content  : center;
     align-items    : center;
+}
+
+.post-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 12vh;
+    position: relative;
+}
+
+.post {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px solid #5b2fc3;
+    padding: 25px;
+    margin: 15px 0;
+    width: 80%;
+    border-radius: 0;
+    position: relative;
+    transform: skew(-3deg);
+    box-shadow: 5px 5px 0px #5b2fc3;
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+.post:hover {
+    transform: skew(-3deg) translateY(-5px);
+    box-shadow: 8px 8px 0px #5b2fc3;
+}
+
+.post-time {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9em;
+    color: #5b2fc3;
+    text-align: right;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 10px 15px;
+    height: 5vh;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    background-color: #fff;
+    border: 2px solid #5b2fc3;
+    color: #5b2fc3;
+    transform: skew(-5deg);
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.pagination a.active,
+.pagination a:hover {
+    background-color: #5b2fc3;
+    color: #fff;
+    box-shadow: 3px 3px 0px #000;
+}
+
+.login-trigger {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 100vh;
+    background-color: #333;
+    opacity: 0.3;
+    z-index: 100;
+}
+
+.login-trigger:hover {
+    opacity: 0.5;
+}
+
+.login-form {
+    position: fixed;
+    left: -300px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 2px solid #5b2fc3;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    transition: left 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 99;
+    transform: skew(-5deg);
+}
+
+.login-form input {
+    width: 90%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #444;
+    background-color: #fff;
+    color: #000;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 2px solid #5b2fc3;
+    color: #000;
+    transform: skew(5deg);
+    font-weight: bold;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #5b2fc3;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #5b2fc3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+    background-color: #4925a3;
+}
+
+/* Update hover states */
+.login-trigger:hover + .login-form,
+.login-form:hover {
+    left: 10px;
+}
+
+.new-post-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 20px 30px;
+    background-color: #5b2fc3;
+    color: white;
+    border: none;
+    transform: skew(-10deg);
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 5px 5px 0px #000;
+    transition: all 0.3s ease;
+    display: none;
+}
+
+.new-post-button:hover {
+    background-color: #4925a3;
+    transform: skew(-10deg) translateY(-5px);
+    box-shadow: 8px 8px 0px #000;
+}
+
+.post-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.edit-btn, .delete-btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    transform: skew(-5deg);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.edit-btn {
+    background-color: #5b2fc3;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #ff4444;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #4925a3;
+}
+
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+
+.post-media {
+    max-width: 100%;
+    margin: 10px 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.post-media img {
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.post-media video {
+    max-height: 400px;
+    width: 100%;
+}
+
+/* Add animation for posts appearing */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%) skew(-3deg);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) skew(-3deg);
+        opacity: 1;
+    }
 }

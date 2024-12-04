@@ -6,12 +6,25 @@
     <link rel="stylesheet" href="style.css"/>
   </head>
   <body>
+    <div class="loading-screen">
+      <div class="loading-container">
+        <div class="loading-mask-container"></div>
+        <div class="loading-lines">
+          <div class="loading-line line-1"></div>
+          <div class="loading-line line-2"></div>
+          <div class="loading-line line-3"></div>
+          <div class="loading-line line-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-content">
     
     
     <header>
     <div class="tabs">
         <a href="main.html" class="tablinks">home</a>
-        <a href="/pages/posts.html" class="tablinks">posts</a>
+        <a href="/pages/PostPage/posts.html" class="tablinks">posts</a>
         <a href="/pages/logs.html" class="tablinks">logs</a>
         <a href="/pages/projects.html" class="tablinks">projects</a>
         <a href="/pages/archives.html" class="tablinks">archives</a>
@@ -45,34 +58,40 @@
         </div>
       </div>
     
-    
-      <div class="hidden" id=experiences> <!--This is intro/ Experience-->
-        <h2 class="headertags">Experience</h2>
-          <p class="boxdesc">This site is a story, or rather an overview on the things that I do or have done, for my own personal growth, and for fun.
+      <div class="hidden" id=experiences> <!--This is intro/ Purpose-->
+        <h2 class="headertags">Other</h2>
+          <p class="boxdesc">Other miscellaneous things:
           </p>
-          <div class="languages"><p class="boxdesc">Lanuages:</p></div>
-          <div class="game"></div>
-          <div class="youtube"> <p class="boxdesc">Check my youtube!</p></div>
+          <div class="email">
+            <label class = emailtext >Send your experience!</label>
+            <form action="#" method="post">
+              <label id = textSendEmail for="name">Name:</label>
+              <input type="text" name="name"/><br/>
+              <label id = textSendEmail for="message">Email:</label>
+              <input type="text" name="Email"/><br/>
+              <label id = textSendEmail for="message">Message:</label> 
+              <textarea id="message" name="message" placeholder="Your message" required></textarea>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+          
       </div>
     </div>
-    
-    
+    <footer><div class="contacts">
+      <h2 class="contacttitle">Contact Me!</h2>
+      <li class=contactdesc>Email: </span>
+      <a href="mailto: alivessteam@gmail.com" class="contactdesc">alivessteam@gmail.com</a>
+      <li class=contactdesc>Discord: </span>
+      <span class="contactdesc">43c7</span>
+      <li class=contactdesc>Instagram: </span>
+      <span class="contactdesc">tyvernox</span>
+      <li class=contactdesc>Github: </span>
+      <span class="contactdesc">Aectivist</span>
+      <p class=contactdesc>Feel free to reach me any time!</p>
+  </div></footer>
     
 
-    <div class="contacts">
-        <h2 class="contacttitle">Contact Me!</h2>
-        <li class=contactdesc>Email: </span>
-        <a href="mailto: alivessteam@gmail.com" class="contactdesc">alivessteam@gmail.com</a>
-        <li class=contactdesc>Discord: </span>
-        <span class="contactdesc">43c7</span>
-        <li class=contactdesc>Instagram: </span>
-        <span class="contactdesc">tyvernox</span>
-        <li class=contactdesc>Github: </span>
-        <span class="contactdesc">Aectivist</span>
-        <p class=contactdesc>Feel free to reach me any time!</p>
     </div>
-    
-
     <script type="module" src="script.js"></script>
   </body>
 </html>
