@@ -38,7 +38,7 @@ a {
     text-transform: uppercase;
     font-weight: 800;
     font-family: "Josefin Sans", sans-serif;
-    background: linear-gradient(to right,#7b0ab0 10%, #7835d0 50%,#7b0ab0 100% );
+    background: linear-gradient(to left ,#7b0ab0 10%, #ab70f8 50%,#7b0ab0 100% );
     background-size: auto auto;
     background-clip: border-box;
     background-size: 10% auto;
@@ -46,7 +46,7 @@ a {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: textclip 12s linear infinite;
+    animation: textclip 50s linear infinite;
     display: inline-block;
     
   }
@@ -233,6 +233,7 @@ a {
 }
 
 
+
 #container3D canvas{
     width:100% !important;
     height: 70vh !important;
@@ -243,6 +244,114 @@ a {
     animation: colorTransition 100s infinite alternate;
 }
 
+
+.email{
+    width: 50%;
+    border: 1px solid black;
+    background: linear-gradient(to bottom, #ffffff 0%, #fdfdfd 100%);
+    padding: 10px;
+    padding-top: 3%;
+    margin: 0px;
+    border-radius: 2vh;
+    height: auto;
+    justify-content: center;
+    align-content  : center;
+    align-items    : center;
+    margin-bottom: 20px;
+}
+.emailtext{
+    color: rgb(0, 0, 0);
+    font-family: Verdana;
+    font-size: 4vh;
+    font-weight: bold;
+    text-align: center;
+    float: center;
+    justify-content: center;
+    align-content  : center;
+    align-items    : center;
+}
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #textSendEmail{
+    color: rgb(0, 0, 0);
+    padding: 0.5%;
+    font-family: monospace;
+    font-size: 3vh;
+    padding-top: 20px;
+    text-align: left;
+    float: left;
+    justify-content: left;
+    align-content  : left;
+    align-items    : left;
+  }
+  
+  input, textarea {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    background-color: #001b38;
+    color: white;
+    border: none;
+    width: 15%;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    animation: buttonsendanimation 0.4s forwards
+  }
+  @keyframes buttonsendanimation{
+    from {
+        background-color: #001b38;
+        box-shadow: 0 0 10px #fff, 0 0 15px #fff;
+        border-radius: 4px;
+      }
+      to {
+        
+        background-color: #f1eeff;
+        box-shadow: 0 0 5px #000000, 0 0 15px #482162;
+        color: black;
+        border-radius: 20px;
+      }
+  }
+  
+  #messages {
+    margin-top: 20px;
+  }
+  #message, textarea {
+    width: 90%; /* Ensures it stretches to match the form width */
+    height: 150px; /* Increase the height for a bigger input area */
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    resize: vertical; /* Allows users to adjust the height manually */
+  }
+  
+  
+  #message-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  #message-list li {
+    background: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  
 #CAS{
     width:99%;
     border: 1px solid black;
@@ -268,13 +377,13 @@ a {
     width: 30vw;
     
 }
-.creativity{
+.art{
     display: inline-block;
 }
-.activity{
+.programming{
     display: inline-block;
 }
-.service{
+.lifestyle{
     display: inline-block;
 }
 #containernum23D canvas{

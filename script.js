@@ -1,3 +1,4 @@
+
 //Import the THREE.js library
 import * as THREE from 'https://cdn.skypack.dev/three@0.129.0/build/three.module.js';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js';
@@ -146,4 +147,24 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   hiddenElements.forEach((el) => observer.observe(el));
+});
+
+document.getElementById("guestbook-form").addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent form submission
+
+  // Get input values
+  const name = document.getElementById("name").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  if (name && message) {
+    // Create a new list item for the message
+    const messageItem = document.createElement("li");
+    messageItem.innerHTML = `<strong>${name}</strong>: ${message}`;
+    
+    // Append the message to the message list
+    document.getElementById("message-list").appendChild(messageItem);
+
+    // Clear the form
+    document.getElementById("guestbook-form").reset();
+  }
 });

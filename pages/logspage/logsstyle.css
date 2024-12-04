@@ -154,3 +154,13 @@ a {
     align-content  : center;
     align-items    : center;
 }
+
+#container3D canvas{
+    width:100% !important;
+    height: 70vh !important;
+    position:relative;
+    transition: rgb(34, 34, 34);
+    top: 0;
+    background-color: #87CEEB;
+    animation: colorTransition 100s infinite alternate;
+}

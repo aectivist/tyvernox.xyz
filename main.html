@@ -10,11 +10,11 @@
     
     <header>
     <div class="tabs">
-        <a href="main.html" class="tablinks">home</a>
+        <a href="/main.html" class="tablinks">home</a>
         <a href="/pages/PostPage/posts.html" class="tablinks">posts</a>
-        <a href="/pages/logs.html" class="tablinks">logs</a>
-        <a href="/pages/projects.html" class="tablinks">projects</a>
-        <a href="/pages/archives.html" class="tablinks">archives</a>
+        <a href="/pages/projectPage/projects.html" class="tablinks">projects</a>
+        <a href="/pages/logspage/logs.html" class="tablinks">logs</a>
+        <a href="/pages/archivePage/archives.html" class="tablinks">archives</a>
     </div>
     
     </header>
@@ -37,15 +37,15 @@
         </p>
       </div>
       <div class="hidden", id="CAS"> <!--This is intro/  Experience-->
-        <h2 class="headertags">CAS PROJECTS</h2>
+        <h2 class="headertags">PROJECTS</h2>
           <div class="projects">
-            <div class="creativity">
+            <div class="art">
               <image src = "stockphotos.jpg" alt="holder" href="/pages/projects.html " id = stockimg></image>
             </div>
-            <div class="activity">
+            <div class="programming">
               <image src = "stockphotos.jpg" alt="holder" href="/pages/projects.html " id = stockimg></image>
             </div>
-            <div class="service">
+            <div class="lifestyle">
               <image src = "stockphotos.jpg" alt="holder" href="/pages/projects.html " id = stockimg></image>
             </div>
           </div>
@@ -53,12 +53,22 @@
     
     
       <div class="hidden" id=experiences> <!--This is intro/ Purpose-->
-        <h2 class="headertags">Experience</h2>
-          <p class="boxdesc">This site is a story, or rather an overview on the things that I do or have done, for my own personal growth, and for fun.
+        <h2 class="headertags">Other</h2>
+          <p class="boxdesc">Other miscellaneous things:
           </p>
-          <div class="languages"></div>
-          <div class="game"></div>
-          <div class="youtube"></div>
+          <div class="email">
+            <label class = emailtext >Send your experience!</label>
+            <form action="#" method="post">
+              <label id = textSendEmail for="name">Name:</label>
+              <input type="text" name="name"/><br/>
+              <label id = textSendEmail for="message">Email:</label>
+              <input type="text" name="Email"/><br/>
+              <label id = textSendEmail for="message">Message:</label> 
+              <textarea id="message" name="message" placeholder="Your message" required></textarea>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+          
       </div>
     </div>
     
