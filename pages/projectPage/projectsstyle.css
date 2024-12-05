@@ -22,6 +22,7 @@ body {
     font-family: "ubuntu", Arial, sans-serif;
     overflow-x: hidden;
     display: grid;
+    background-color: rgb(62, 0, 79);
   }
   
 a {
@@ -118,4 +119,120 @@ a {
     justify-content: center;
     align-content  : center;
     align-items    : center;
+}
+
+.tabs{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  background-color: rgb(0, 0, 0);
+  width: 100%;
+  height: 9vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0; 
+  height: 9vh; 
+  position:fixed;
+  z-index: 1;
+
+}
+
+.tablinks:link, .tablinks:visited{
+  position: relative;
+  color: #fff;
+  font-size: 4vh;
+  padding: 5%;
+  font-family: 'Lucida Console';
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px #7b0ab0;
+}
+
+.tablinks:hover {
+  color: #7b0ab0;
+  transform: skew(-10deg) scale(1.1);
+  text-shadow: 0 0 10px #7b0ab0;
+  background: rgba(123, 10, 176, 0.2);
+}
+
+@keyframes tilt {
+  0% {
+      rotate: 0deg;
+      background-color: black;
+      color: red;
+  }
+
+  100% {
+      rotate: 5deg;
+      background-color: #5b2fc3;
+  }
+}
+.vinyl-reco {
+  position: fixed;
+  left: -15%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  transition: transform 0.5s ease;
+}
+
+.vinyl-img {
+  width: 100%;
+  height: auto;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.slide-left {
+  transform: translateX(-100%) translateY(-50%);
+}
+
+.project-outp {
+  position: fixed;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40%;
+  background: rgba(123, 10, 176, 0.2);
+  padding: 2em;
+  border-radius: 15px;
+  color: white;
+  transition: background 0.5s ease;
+}
+
+.switch-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background: #7b0ab0;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.switch-btn:hover {
+  background: #5b2fc3;
+  transform: scale(1.1);
+}
+
+.alt-bg {
+  background: rgba(91, 47, 195, 0.2);
+}
+.vinyl-reco{
+  
+}
+.project-outp{
+    
 }

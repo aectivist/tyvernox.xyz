@@ -4,17 +4,34 @@
     <meta charset="utf-8"/>
     <title>Aectivist Homepage</title>
     <link rel="stylesheet" href="/pages/projectPage/projectsstyle.css"/>
+    <script async src="https://unpkg.com/es-module-shims/dist/es-module-shims.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.157.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
   <body>
-    <div class="tabs">
-        <a href="/main.html" class="tablinks">home</a>
+    <header>
+      <div class="tabs">
+        <a href="/main.html" class="tablinks">home</a>  
         <a href="/pages/PostPage/posts.html" class="tablinks">posts</a>
         <a href="/pages/projectPage/projects.html" class="tablinks">projects</a>
-        <a href="/pages/logspage/logs.html" class="tablinks">logs</a>
         <a href="/pages/archivePage/archives.html" class="tablinks">archives</a>
+        <a href="/pages/logspage/logs.html" class="tablinks">logs</a>
+      </div>
+    </header>
+    <div class="vinyl-reco">
+      <img src="/models/vinyl-record-img.png" alt="Vinyl Record" class="vinyl-img">
     </div>
-    <p class="t404t">404</p>
-    
-    <script type="module" src="script.js"></script>
+    <div class="project-outp">
+      <h2>Project Title</h2>
+      <p>Project description goes here. This is the default content that will be displayed.</p>
+    </div>
+    <button class="switch-btn">Switch View</button>
+    <script type="module" src="projectscript.js"></script>
   </body>
 </html>
