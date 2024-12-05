@@ -1,84 +1,80 @@
-let loggedIn = JSON.parse(localStorage.getItem('isLoggedIn')) || false;
+let loggedIn = false;
+let authToken = null;
+const API_URL = 'http://localhost:3000/api';
 
-function login(username, password) {
-    console.log("Login attempted"); // Debug line
-    if (username === "admin" && password === "IDAWG") {
-        loggedIn = true;
-        localStorage.setItem('isLoggedIn', true);
-        alert("Login successful!");
-        const content = prompt("Enter your post content:");
-        if (content) {
-            createPost(content);
-        }
-        document.querySelector('.login-form').style.display = 'none';
-        document.querySelector('.new-post-button').style.display = 'block';
-    } else {
-        alert("Invalid credentials!");
-    }
-}
-
-function createPostPrompt() {
-    const content = prompt("Enter your post content:");
-    if (content) {
-        const hasEmbed = confirm("Would you like to add media (image/video)?");
-        if (hasEmbed) {
-            const mediaType = prompt("Enter media type (image/video):");
-            const mediaUrl = prompt("Enter media URL:");
-            if (mediaUrl && (mediaType === 'image' || mediaType === 'video')) {
-                createPost(content, { type: mediaType, url: mediaUrl });
-            } else {
-                createPost(content);
-            }
+async function login(username, password) {
+    try {
+        const response = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await response.json();
+        
+        if (response.ok) {
+            loggedIn = true;
+            authToken = data.token;
+            document.querySelector('.login-form').style.display = 'none';
+            document.querySelector('.new-post-button').style.display = 'block';
+            loadPosts();
         } else {
-            createPost(content);
+            alert('Invalid credentials!');
         }
+    } catch (err) {
+        console.error('Login error:', err);
+        alert('Login failed');
     }
 }
 
-function loadPostsFromStorage() {
-    const posts = JSON.parse(localStorage.getItem('posts')) || [];
-    const postContainer = document.querySelector('.post-container');
-    postContainer.innerHTML = ''; // Clear existing posts
-    posts.forEach(post => {
-        const postDiv = document.createElement('div');
-        postDiv.className = 'post';
-        postDiv.id = post.id;
-        postDiv.innerHTML = `
-            <p>${post.content}</p>
-            ${post.media ? renderMedia(post.media) : ''}
-            <div class="post-time">${post.timestamp}</div>
-            ${loggedIn ? `
-                <div class="post-actions">
-                    <button onclick="editPostPrompt('${post.id}')" class="edit-btn">Edit</button>
-                    <button onclick="deletePost('${post.id}')" class="delete-btn">Delete</button>
-                </div>
-            ` : ''}
-        `;
-        postContainer.appendChild(postDiv);
-    });
-    paginatePosts(1, 5);
+async function loadPosts() {
+    try {
+        const response = await fetch(`${API_URL}/posts`);
+        const posts = await response.json();
+        const postContainer = document.querySelector('.post-container');
+        postContainer.innerHTML = '';
+        
+        posts.forEach(post => {
+            const postDiv = document.createElement('div');
+            postDiv.className = 'post';
+            postDiv.id = post._id;
+            postDiv.innerHTML = `
+                <p>${post.content}</p>
+                ${post.media ? renderMedia(post.media) : ''}
+                <div class="post-time">${new Date(post.timestamp).toLocaleString()}</div>
+                ${loggedIn ? `
+                    <div class="post-actions">
+                        <button onclick="editPostPrompt('${post._id}')" class="edit-btn">Edit</button>
+                        <button onclick="deletePost('${post._id}')" class="delete-btn">Delete</button>
+                    </div>
+                ` : ''}
+            `;
+            postContainer.appendChild(postDiv);
+        });
+        paginatePosts(1, 5);
+    } catch (err) {
+        console.error('Error loading posts:', err);
+    }
 }
 
-function createPost(content, media = null) {
+async function createPost(content, media = null) {
     if (!loggedIn) {
         alert("You must be logged in to create a post.");
         return;
     }
     
-    const newPost = {
-        id: 'post_' + Date.now(),
-        content: content,
-        timestamp: new Date().toLocaleString(),
-        media: media
-    };
-
-    // Save to localStorage
-    const posts = JSON.parse(localStorage.getItem('posts')) || [];
-    posts.unshift(newPost); // Add new post at the beginning
-    localStorage.setItem('posts', JSON.stringify(posts));
-
-    // Update display
-    loadPostsFromStorage();
+    try {
+        await fetch(`${API_URL}/posts`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ content, media })
+        });
+        loadPosts();
+    } catch (err) {
+        console.error('Error creating post:', err);
+    }
 }
 
 function renderMedia(media) {
@@ -95,39 +91,44 @@ function renderMedia(media) {
     return '';
 }
 
-function editPostPrompt(postId) {
-    const newContent = prompt("Enter new content for the post:");
-    if (newContent) {
-        editPost(postId, newContent);
-    }
-}
-
-function editPost(postId, newContent) {
+async function editPost(postId, newContent) {
     if (!loggedIn) {
         alert("You must be logged in to edit a post.");
         return;
     }
     
-    let posts = JSON.parse(localStorage.getItem('posts')) || [];
-    const postIndex = posts.findIndex(post => post.id === postId);
-    if (postIndex !== -1) {
-        posts[postIndex].content = newContent;
-        localStorage.setItem('posts', JSON.stringify(posts));
-        loadPostsFromStorage();
+    try {
+        await fetch(`${API_URL}/posts/${postId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`
+            },
+            body: JSON.stringify({ content: newContent })
+        });
+        loadPosts();
+    } catch (err) {
+        console.error('Error editing post:', err);
     }
 }
 
-function deletePost(postId) {
+async function deletePost(postId) {
     if (!loggedIn) {
         alert("You must be logged in to delete a post.");
         return;
     }
     
-    let posts = JSON.parse(localStorage.getItem('posts')) || [];
-    posts = posts.filter(post => post.id !== postId);
-    localStorage.setItem('posts', JSON.stringify(posts));
-    
-    loadPostsFromStorage();
+    try {
+        await fetch(`${API_URL}/posts/${postId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${authToken}`
+            }
+        });
+        loadPosts();
+    } catch (err) {
+        console.error('Error deleting post:', err);
+    }
 }
 
 function paginatePosts(pageNumber, postsPerPage) {
@@ -155,69 +156,17 @@ function renderPagination(totalPages, currentPage) {
     }
 }
 
-// Add these new functions
-function handleVisibilityChange() {
-    if (document.hidden) {
-        // User left the page
-        localStorage.removeItem('isLoggedIn');
-        loggedIn = false;
-    }
-}
-
-function resetLoginState() {
-    const loginElements = document.querySelectorAll('.login-trigger, .login-form');
-    const newPostButton = document.querySelector('.new-post-button');
-    
-    loginElements.forEach(el => {
-        el.style.display = 'block';
-        if (el.classList.contains('login-form')) {
-            el.style.left = '-300px'; // Reset position of login form
-        }
-    });
-    newPostButton.style.display = 'none';
-    loadPostsFromStorage(); // Reload posts without edit buttons
-}
-
-// Update the event listeners
-document.addEventListener('DOMContentLoaded', () => {
-    const loginElements = document.querySelectorAll('.login-trigger, .login-form');
-    const newPostButton = document.querySelector('.new-post-button');
-    
-    if (loggedIn) {
-        loginElements.forEach(el => el.style.display = 'none');
-        newPostButton.style.display = 'block';
-    } else {
-        loginElements.forEach(el => el.style.display = 'block');
-        newPostButton.style.display = 'none';
-    }
-    
-    loadPostsFromStorage();
-    
-    // Add visibility change detection
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-});
-
-// Update the page leave/return handling
-window.addEventListener('beforeunload', () => {
-    localStorage.removeItem('isLoggedIn');
-    loggedIn = false;
-});
-
-window.addEventListener('pageshow', (event) => {
-    if (event.persisted) {
-        // Page is loaded from cache (user used back/forward)
-        loggedIn = false;
-        resetLoginState();
-    }
-});
-
-// Optional: Add a logout function if you want to use it elsewhere
 function logout() {
-    localStorage.removeItem('isLoggedIn');
     loggedIn = false;
+    authToken = null;
     const loginElements = document.querySelectorAll('.login-trigger, .login-form');
     const newPostButton = document.querySelector('.new-post-button');
     loginElements.forEach(el => el.style.display = 'block');
     newPostButton.style.display = 'none';
-    loadPostsFromStorage(); // Reload posts without edit/delete buttons
+    loadPosts();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadPosts();
+});
+

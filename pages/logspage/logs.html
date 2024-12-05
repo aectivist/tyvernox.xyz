@@ -5,16 +5,35 @@
     <title>Aectivist Homepage</title>
     <link rel="stylesheet" href="/pages/logspage/logsstyle.css"/>
   </head>
-  <body>
+  <header>
     <div class="tabs">
       <a href="/main.html" class="tablinks">home</a>
       <a href="/pages/PostPage/posts.html" class="tablinks">posts</a>
       <a href="/pages/projectPage/projects.html" class="tablinks">projects</a>
-      <a href="/pages/archivePage/archives.html" class="tablinks">archives</a>
+      <a href="https://www.youtube.com/@tyvernox-q3k" class="tablinks">youtube</a>
       <a href="/pages/logspage/logs.html" class="tablinks">logs</a>
   </div>
-    
-    
-    <script type="module" src="script.js"></script>
+  </header>
+  <body>
+    <div class="login-container">
+      <div class="login-box">
+        <h2>Access Logs</h2>
+        <form id="loginForm">
+          <div class="input-group">
+            <input type="text" id="username" required>
+            <label>Username</label>
+            <div class="neon-line"></div>
+          </div>
+          <div class="input-group">
+            <input type="password" id="password" required>
+            <label>Password</label>
+            <div class="neon-line"></div>
+          </div>
+          <button type="submit" class="login-btn">LOGIN</button>
+        </form>
+      </div>
+    </div>
+    <div id="background-grid"></div>
+    <script src="logsscript.js"></script>
   </body>
 </html>

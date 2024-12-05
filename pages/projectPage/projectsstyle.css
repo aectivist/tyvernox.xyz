@@ -22,7 +22,7 @@ body {
     font-family: "ubuntu", Arial, sans-serif;
     overflow-x: hidden;
     display: grid;
-    background-color: rgb(62, 0, 79);
+    background-color: rgb(47, 52, 107);
   }
   
 a {
@@ -134,8 +134,7 @@ a {
   padding: 0; 
   height: 9vh; 
   position:fixed;
-  z-index: 1;
-
+  z-index: 1000; /* Increase z-index to ensure tabs are always at the front */
 }
 
 .tablinks:link, .tablinks:visited{
@@ -187,6 +186,10 @@ a {
   animation: spin 3s linear infinite;
 }
 
+.vinyl-img.paused {
+  animation-play-state: paused;
+}
+
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -196,43 +199,127 @@ a {
   transform: translateX(-100%) translateY(-50%);
 }
 
+.outer-outerlyr-outp{
+  position: fixed;
+  right: 3%;
+  top: 65%;
+  rotate: 1deg;
+  transform: translateY(-50%) skew(-3deg);
+  width: 53%;
+  height: 100vh;
+  background: rgb(219, 35, 32);
+  padding: 2em;
+  color: white;
+  transition: background 0.5s ease;
+  clip-path: polygon(0 2rem, 100% 0, 100% 100%, 0 calc(100% - 2rem));
+
+  transition: all 0.3s ease;
+}
+
+.outer-outerlyr-outp:hover {
+  transform: translateY(-51%) skew(-5deg) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.outerlyr-outp {
+  position: fixed;
+  right: 4%;
+  top: 65%;
+  rotate: 1deg;
+  transform: translateY(-50%) skew(-5deg);
+  width: 54%;
+  height: 92vh;
+  background: rgb(80, 30, 215);
+  padding: 2em;
+  color: white;
+  transition: background 0.5s ease;
+  clip-path: polygon(0 2rem, 100% 0, 100% 100%, 0 calc(100% - 2rem));
+  transition: all 0.3s ease;
+  border: 1px solid black;
+}
+
+.outerlyr-outp:hover {
+  transform: translateY(-51%) skew(-5deg) scale(1.02);
+  box-shadow: 0 10px 30px rgba(123, 10, 176, 0.3);
+  z-index: 2;
+}
+
 .project-outp {
   position: fixed;
   right: 5%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40%;
-  background: rgba(123, 10, 176, 0.2);
+  top: 69%;
+  transform: translateY(-50%) skew(-5deg);
+  width: 54%;
+  height: 89vh;
+  background: rgb(20, 20, 20);
   padding: 2em;
-  border-radius: 15px;
   color: white;
   transition: background 0.5s ease;
+  clip-path: polygon(0 1rem, 100% 0, 100% 100%, 0 calc(100% - 2rem));
+  transition: all 0.3s ease;
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.project-outp:hover {
+  transform: translateY(-51%) skew(-5deg) scale(1.02);
+  box-shadow: 0 10px 30px rgba(123, 10, 176, 0.4);
+  z-index: 3;
 }
 
 .switch-btn {
   position: absolute;
+  height: 70px;
   bottom: 20px;
   right: 20px;
   padding: 10px 20px;
-  background: #7b0ab0;
   border: none;
   border-radius: 5px;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
+  content: "Next Song";
+  z-index: 1000;
 }
 
 .switch-btn:hover {
-  background: #5b2fc3;
   transform: scale(1.1);
+}
+
+.song-notification {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.song-notification.show {
+  opacity: 1;
+}
+
+.output-content:hover{
+  box-shadow: 0 0 10px rgba(123, 10, 176, 0.5);
+  
 }
 
 .alt-bg {
   background: rgba(91, 47, 195, 0.2);
 }
-.vinyl-reco{
-  
-}
-.project-outp{
-    
+
+#background-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: url('/images/anastasiya-osichkina-leblancrgb-color-fin2 (1).jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
 }

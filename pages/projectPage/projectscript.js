@@ -2,41 +2,66 @@ const vinylContainer = document.querySelector('.vinyl-reco');
 const projectOutput = document.querySelector('.project-outp');
 const switchButton = document.querySelector('.switch-btn');
 
-const content = {
-    default: {
-        title: "Project Title",
-        description: "Project description goes here. This is the default content that will be displayed."
-    },
-    alternate: {
-        title: "Alternative View",
-        description: "This is the alternative content that appears after switching."
-    }
-};
+const songs = [
+    { path: '/songs/Persona 5 OST 59 - The Days When My Mother Was There .mp3', title: 'The Days When My Mother Was There' },
+    { path: '/songs/Persona 5 OST 55 - Life Goes On.mp3', title: 'Life Goes On' },
+    { path: '/songs/Persona 5 OST 09 - Beneath the Mask -instrumental version- .mp3', title: 'Beneath the Mask' },
+    { path: '/songs/P5 OST 66 Break it Down  Elp Version.mp3', title: 'Break it Down' },
+    { path: '/songs/P5 OST 62 Alright  Elp Version.mp3', title: 'Alright' }
+];
 
-let isDefaultView = true;
-let isAnimating = false;
+const audioPlayer = document.getElementById('music-player');
+const vinylImg = document.querySelector('.vinyl-img');
+const notification = document.querySelector('.song-notification');
+let currentSongIndex = Math.floor(Math.random() * songs.length);
 
-function updateContent() {
-    const currentContent = isDefaultView ? content.default : content.alternate;
-    const titleElement = projectOutput.querySelector('h2');
-    const descriptionElement = projectOutput.querySelector('p');
-    
-    titleElement.textContent = currentContent.title;
-    descriptionElement.textContent = currentContent.description;
+function playSong(index) {
+    audioPlayer.src = songs[index].path;
+    audioPlayer.load(); // Explicitly load the audio
+    audioPlayer.play().catch(error => {
+        console.error('Error playing audio:', error);
+        showNotification('Error playing audio. Please try again.');
+    });
+    showNotification(songs[index].title);
+    vinylImg.classList.remove('paused');
 }
 
-switchButton.addEventListener('click', () => {
-    if (isAnimating) return;
-    isAnimating = true;
+// Add error handling for audio
+audioPlayer.addEventListener('error', (e) => {
+    console.error('Audio error:', e);
+    showNotification('Error loading audio file');
+});
 
+function showNotification(songTitle) {
+    notification.textContent = `Now Playing: ${songTitle}`;
+    notification.classList.add('show');
+    setTimeout(() => notification.classList.remove('show'), 3000);
+}
+
+// Initial song play
+playSong(currentSongIndex);
+
+// Vinyl click handler
+vinylImg.addEventListener('click', () => {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        vinylImg.classList.remove('paused');
+    } else {
+        audioPlayer.pause();
+        vinylImg.classList.add('paused');
+    }
+});
+
+// Next song button handler
+switchButton.addEventListener('click', () => {
     vinylContainer.classList.add('slide-left');
-    isDefaultView = !isDefaultView;
-    updateContent();
-    projectOutput.classList.toggle('alt-bg');
+    currentSongIndex = (currentSongIndex + 1) % songs.length;
     
     setTimeout(() => {
         vinylContainer.classList.remove('slide-left');
-        isAnimating = false;
-    }, 500);
-    print("Switch button clicked");
+        playSong(currentSongIndex);
+    }, 2000);
 });
+
+// Remove existing updateContent and content object as they're no longer needed
+
