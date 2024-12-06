@@ -1,0 +1,114 @@
+
+AECTIVIST PORTFOLIO WEBSITE - SETUP GUIDE
+========================================
+
+Prerequisites
+------------
+1. Node.js (v14 or higher)
+2. MongoDB Community Server
+3. Git (optional)
+
+Initial Setup
+------------
+1. Install MongoDB:
+   - Download from: https://www.mongodb.com/try/download/community
+   - Install with default settings
+   - Start MongoDB service:
+     Windows: net start MongoDB
+     Mac/Linux: sudo service mongod start
+
+2. Project Setup:
+   a. Create project directory:
+      mkdir aectivist-portfolio-website
+      cd aectivist-portfolio-website
+   
+   b. Install dependencies:
+      npm install express mongoose cors dotenv bcryptjs jsonwebtoken helmet express-rate-limit
+
+3. Environment Setup:
+   a. Create .env file in backend folder with:
+      MONGODB_URI=mongodb://127.0.0.1:27017/aectivist-portfolio
+      ADMIN_USERNAME=Aectivistyrn
+      ADMIN_PASSWORD=Y9eBpH2SGN2TR19Z
+      JWT_SECRET=9368d0edea7f875ab02f87ed43f48081547927fb26631d1c1316c35e1340e7c4866021373ccac6f39e9070e6950b
+
+   b. IMPORTANT: Change these credentials after first login!
+
+Starting the Application
+-----------------------
+1. Start MongoDB (if not running):
+   Windows: net start MongoDB
+   Mac/Linux: sudo service mongod start
+
+2. Create admin user:
+   cd backend
+   node scripts/createAdmin.js
+
+3. Start the server:
+   node index.js
+   - Should see: "Connected to MongoDB" and "Server running on port 3000"
+
+4. Access the application:
+   - Open pages/PostPage/posts.html in a web browser
+   - Click login trigger on left side
+   - Login with credentials from .env file
+
+Features
+--------
+1. Authentication:
+   - Login using admin credentials
+   - JWT token-based authentication
+   - Session persists for 24 hours
+
+2. Posts Management:
+   - Create new posts
+   - Edit existing posts
+   - Delete posts
+   - View all posts with pagination
+   - Support for text content
+
+Security Notes
+-------------
+1. Change the default password after first login
+2. Keep .env file secure and never commit to version control
+3. Use HTTPS in production
+4. Regular security updates for dependencies
+
+Troubleshooting
+--------------
+1. MongoDB Connection Issues:
+   - Verify MongoDB is running: mongod --version
+   - Check connection string in .env
+   - Try using 127.0.0.1 instead of localhost
+
+2. Login Issues:
+   - Check browser console for errors (F12)
+   - Verify credentials match .env file
+   - Clear browser cache/cookies
+
+3. Post Creation Issues:
+   - Check if logged in
+   - Verify JWT token in browser console
+   - Check server logs for errors
+
+Development Tips
+---------------
+1. Use nodemon for auto-reload:
+   npm install -g nodemon
+   nodemon index.js
+
+2. Monitor MongoDB:
+   - Install MongoDB Compass for GUI
+   - Check server logs for queries
+
+3. Debug:
+   - Check browser console (F12)
+   - Server logs in terminal
+   - MongoDB logs in data/log directory
+
+Contact & Support
+----------------
+For issues:
+1. Check console logs
+2. Review this setup guide
+3. Contact repository maintainer

@@ -1,28 +1,41 @@
+const API_URL = 'http://localhost:3000/api';
 let loggedIn = false;
 let authToken = null;
-const API_URL = 'http://localhost:3000/api';
 
 async function login(username, password) {
     try {
-        const response = await fetch(`${API_URL}/login`, {
+        console.log('Attempting login...', { username });
+        const response = await fetch(`${API_URL}/auth/login`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            credentials: 'same-origin', // Change this from 'include' to 'same-origin'
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
         });
-        const data = await response.json();
-        
-        if (response.ok) {
-            loggedIn = true;
-            authToken = data.token;
-            document.querySelector('.login-form').style.display = 'none';
-            document.querySelector('.new-post-button').style.display = 'block';
-            loadPosts();
-        } else {
-            alert('Invalid credentials!');
+
+        console.log('Response status:', response.status);
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Login failed');
         }
+
+        const data = await response.json();
+        loggedIn = true;
+        authToken = data.token;
+        
+        // Update UI
+        document.querySelector('.login-form').style.display = 'none';
+        document.querySelector('.new-post-button').style.display = 'block';
+        loadPosts();
     } catch (err) {
-        console.error('Login error:', err);
-        alert('Login failed');
+        console.error('Login error details:', err);
+        alert('Connection error: ' + err.message);
     }
 }
 
@@ -56,6 +69,17 @@ async function loadPosts() {
     }
 }
 
+function createPostPrompt() {
+    if (!loggedIn) {
+        alert('Please log in first');
+        return;
+    }
+    const content = prompt('Enter post content:');
+    if (content) {
+        createPost(content);
+    }
+}
+
 async function createPost(content, media = null) {
     if (!loggedIn) {
         alert("You must be logged in to create a post.");
@@ -63,7 +87,7 @@ async function createPost(content, media = null) {
     }
     
     try {
-        await fetch(`${API_URL}/posts`, {
+        const response = await fetch(`${API_URL}/posts`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -71,9 +95,16 @@ async function createPost(content, media = null) {
             },
             body: JSON.stringify({ content, media })
         });
-        loadPosts();
+
+        if (!response.ok) {
+            throw new Error('Failed to create post');
+        }
+
+        await loadPosts(); // Refresh the posts list
+        alert('Post created successfully!');
     } catch (err) {
         console.error('Error creating post:', err);
+        alert('Failed to create post: ' + err.message);
     }
 }
 
@@ -169,4 +200,3 @@ function logout() {
 document.addEventListener('DOMContentLoaded', () => {
     loadPosts();
 });
-

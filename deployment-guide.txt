@@ -1,0 +1,48 @@
+
+DEPLOYMENT GUIDE
+===============
+
+1. Database Setup:
+   - Create MongoDB Atlas account
+   - Create new cluster
+   - Set up database user and password
+   - Whitelist IP addresses
+   - Get connection string
+
+2. Backend Hosting (Render/Heroku):
+   - Create new web service
+   - Connect to GitHub repository
+   - Set environment variables:
+     * MONGODB_URI
+     * NODE_ENV=production
+     * PORT
+     * ADMIN_USERNAME
+     * ADMIN_PASSWORD
+     * JWT_SECRET
+
+3. Frontend Hosting (Netlify/Vercel):
+   - Connect to GitHub repository
+   - Set build settings:
+     * Build command: none (static site)
+     * Publish directory: /
+   - Set environment variables
+   - Configure domain settings
+
+4. Domain Setup:
+   - Purchase domain
+   - Configure DNS settings
+   - Set up SSL certificate
+
+5. Security Checklist:
+   - Update JWT_SECRET
+   - Change admin password
+   - Enable CORS restrictions
+   - Set up rate limiting
+   - Enable HTTPS only
+   - Configure security headers
+
+6. Post-Deployment:
+   - Test all functionality
+   - Monitor error logs
+   - Set up uptime monitoring
+   - Configure backups
