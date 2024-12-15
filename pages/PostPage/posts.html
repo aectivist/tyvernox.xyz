@@ -4,6 +4,7 @@
     <meta charset="utf-8"/>
     <title>Aectivist Homepage</title>
     <link rel="stylesheet" href="/pages/PostPage/poststyle.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   </head>
   <body>
     <header>
@@ -17,19 +18,22 @@
     </header>
   <div id="container3D2"></div>
     
-    <div class="login-trigger"></div>
-    <div class="login-form">
-      <form onsubmit="event.preventDefault(); login(document.getElementById('username').value, document.getElementById('password').value)">
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button type="submit">Login</button>
-      </form>
+    <div class="content-wrapper">
+      <div class="post-input-section">
+        <h2>Create a New Post</h2>
+        <div class="post-input">
+          <textarea id="post-content" placeholder="Share your thoughts..."></textarea>
+          <button class="submit-post-button" onclick="createPostPrompt()">Submit Post</button>
+        </div>
+      </div>
+      
+      <div class="posts-section">
+        <h2>Posts</h2>
+        <div class="post-container" id="post-container"></div>
+        <div class="pagination"></div>
+      </div>
     </div>
     
-    <div class="post-container" id="post-container"></div>
-    <div class="pagination"></div>
-    
-    <button class="new-post-button" onclick="createPostPrompt()">New Post</button>
     <script src="/pages/PostPage/PostScript.js"></script>
   </body>
 </html>
