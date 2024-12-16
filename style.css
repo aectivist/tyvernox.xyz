@@ -256,7 +256,7 @@ a {
     border-radius: 4px;
   }
   
-  button {
+  .button123 {
     background-color: #001b38;
     color: white;
     border: none;
@@ -267,13 +267,13 @@ a {
     font-size: 16px;
   }
   
-  button:hover {
-    animation: buttonsendanimation 0.4s forwards
+  .button123:hover {
+    animation: buttonsendanimation 0.5s forwards
   }
   @keyframes buttonsendanimation{
     from {
         background-color: #001b38;
-        box-shadow: 0 0 10px #fff, 0 0 15px #fff;
+        box-shadow: 0 0 10px #4545c5, 0 0 15px #4545c5;
         border-radius: 4px;
       }
       to {
@@ -420,6 +420,20 @@ a {
 }
 #Project:hover{
     animation:boxanimation2 0.5s forwards
+}
+.project-button{
+    width:90vh;
+    font-weight: bold;
+    color: black;
+    border: 1px solid black;
+    background: linear-gradient(to bottom, #d9d9d9 0%, #a2a2a2 100%);
+    padding: 12;
+    font-size: 4vh;
+    margin: 2px;
+    height: 15%;
+    align-content  : center;
+    align-items    : center;
+    margin-bottom: 20px;
 }
 
 .projects{
