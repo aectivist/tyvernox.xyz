@@ -114,7 +114,7 @@ loader.load(
   },
   function (error) {
     //If there is an error, log it
-    console.error(error);
+    console.error('An error happened while loading the model:', error);
   }
 );
 
@@ -132,6 +132,8 @@ rgbeLoader.load('path_to_hdri.hdr', (texture) => {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     scene.environment = texture; // Set environment lighting
     scene.background = texture;  // Optional: Use HDRI as a background
+}, undefined, (error) => {
+    console.error('An error happened while loading the HDRI:', error);
 });
 
 // Modified lighting setup for more dramatic Persona-like atmosphere

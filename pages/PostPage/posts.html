@@ -37,7 +37,9 @@
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         // Ensure the DOM is fully loaded before executing the script
-        createPostPrompt();
+        if (typeof createPostPrompt === 'function') {
+          createPostPrompt();
+        }
       });
     </script>
     <script src="/pages/PostPage/PostScript.js"></script>
