@@ -26,3 +26,23 @@ document.querySelector('.login-box').addEventListener('mousemove', function(e) {
         ${-x/50}px ${-y/50}px 10px rgba(91, 47, 195, 0.8)
     `;
 });
+
+// Create an audio object
+const hoverSound = new Audio('/soundeffects/clickpersonasfx.mp3');
+
+// Select all boxes
+const tablinks = document.querySelectorAll('.tablinks');
+
+// Add event listeners to each box
+tablinks.forEach(tablink => {
+    tablink.addEventListener('mouseenter', () => {
+        hoverSound.currentTime = 0; // Restart sound if already playing
+        hoverSound.play().catch(error => {
+            if (error.name === 'NotAllowedError') {
+                console.log('Audio play was prevented. User interaction is required.');
+            } else {
+                console.error('Audio play error:', error);
+            }
+        });
+    });
+});

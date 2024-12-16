@@ -17,7 +17,7 @@ document.querySelector('.loading-mask-container').appendChild(loadingRenderer.do
 let loadingMask;
 const loadingMaskLoader = new GLTFLoader();
 loadingMaskLoader.load(
-  'https://www.tyvernox.xyz/models/joker_mask_persona_5/scene.gltf', // Ensure this path is correct
+  'https://www.tyvernox.xyz/models/joker_mask_persona_5/scene.gltf', // Ensure this path is correct and not causing a redirect loop
   function (gltf) {
     loadingMask = gltf.scene;
     loadingMask.scale.set(1, 1, 1);
@@ -101,7 +101,7 @@ const loader = new GLTFLoader();
 
 //Load the file
 loader.load(
-  'https://www.tyvernox.xyz/models/japanese_street_at_night/scene.gltf', // Ensure this path is correct
+  'https://www.tyvernox.xyz/models/japanese_street_at_night/scene.gltf', // Ensure this path is correct and not causing a redirect loop
   function (gltf) {
     object = gltf.scene;
     
