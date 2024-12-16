@@ -42,6 +42,9 @@ loadingMaskLoader.load(
   undefined,
   function (error) {
     console.error('An error happened while loading the model:', error);
+    if (error.target && error.target.status === 0) {
+      console.error('CORS issue or network error.');
+    }
   }
 );
 
@@ -117,8 +120,10 @@ loader.load(
     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
   },
   function (error) {
-    //If there is an error, log it
     console.error('An error happened while loading the model:', error);
+    if (error.target && error.target.status === 0) {
+      console.error('CORS issue or network error.');
+    }
   }
 );
 
