@@ -17,7 +17,7 @@ document.querySelector('.loading-mask-container').appendChild(loadingRenderer.do
 let loadingMask;
 const loadingMaskLoader = new GLTFLoader();
 loadingMaskLoader.load(
-  'models/joker_mask_persona_5/scene.gltf', // Verify this path
+  'https://www.tyvernox.xyz/models/joker_mask_persona_5/scene.gltf', // Ensure this path is correct
   function (gltf) {
     loadingMask = gltf.scene;
     loadingMask.scale.set(1, 1, 1);
@@ -98,7 +98,7 @@ const loader = new GLTFLoader();
 
 //Load the file
 loader.load(
-  'models/japanese_street_at_night/scene.gltf', // Verify this path
+  'https://www.tyvernox.xyz/models/japanese_street_at_night/scene.gltf', // Ensure this path is correct
   function (gltf) {
     object = gltf.scene;
     
@@ -132,7 +132,7 @@ document.getElementById("container3D").appendChild(renderer.domElement);
 camera.position.y = 2
 
 const rgbeLoader = new RGBELoader();
-rgbeLoader.load('path_to_hdri.hdr', (texture) => { // Verify this path
+rgbeLoader.load('https://www.tyvernox.xyz/path_to_hdri.hdr', (texture) => { // Ensure this path is correct
     texture.mapping = THREE.EquirectangularReflectionMapping;
     scene.environment = texture; // Set environment lighting
     scene.background = texture;  // Optional: Use HDRI as a background
