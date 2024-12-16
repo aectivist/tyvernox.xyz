@@ -472,14 +472,15 @@ a {
     background-color: black;
 }
 .contacttitle{
-    font-family: Optima, sans-serif;
-    font-size: 2vh;
+    font-family:monospaceAQ2;
+    font-size: 3vh;
     text-align: left;
     color: white;
+    font-weight: bold;
 }
 .contactdesc{
-    font-family: Verdana;
-    font-size: 2vh;
+    font-family: monospace;
+    font-size: 3vh;
     text-align: left;
     color: white;
 }

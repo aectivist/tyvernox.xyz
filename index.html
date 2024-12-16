@@ -4,6 +4,21 @@
     <meta charset="utf-8"/>
     <title>Aectivist Homepage</title>
     <link rel="stylesheet" href="style.css"/> <!-- Ensure this path is correct -->
+    <style>
+      .tabs {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: #000; /* Set background to black */
+        z-index: 1000;
+      }
+      body {
+        padding-top: 50px; /* Adjust based on the height of the header */
+      }
+      .tablinks {
+        color: #fff; /* Set text color to white */
+      }
+    </style>
   </head>
   <body>
     <div class="loading-screen">
@@ -55,39 +70,22 @@
       </div>
     
       <div class="hidden" id=experiences> <!--This is intro/ Purpose-->
-        <h2 class="headertags">Other</h2>
+        <h2 class="headertags">Contacts</h2>
           <p class="boxdesc">Feel free to check out my posts, projects, and logs! I'll be updating this site regularly, so stay tuned!
           </p>
-          <div class="email">
-            <label class = emailtext >Send your experience!</label>
-            <form action="#" method="post" id="guestbook-form">
-              <label id = textSendEmail for="name">Name:</label>
-              <input type="text" name="name" id="name"/><br/>
-              <label id = textSendEmail for="message">Email:</label>
-              <input type="text" name="Email"/><br/>
-              <label id = textSendEmail for="message">Message:</label> 
-              <textarea id="message" name="message" placeholder="Your message" required></textarea>
-              <button type="submit" class = "button123">Submit</button>
-            </form>
-            <ul id="message-list"></ul>
-          </div>
+            <p class=contacttitle>---------------Email---------------</p>
+            <a href="mailto: alivessteam@gmail.com" class="contactdesc">alivessteam@gmail.com</a>
+            <p class=contacttitle>---------------Discord---------------</p>
+            <span class="contactdesc">43c7</span>
+            <p class=contacttitle>---------------Instagram--------------- </p>
+            <span class="contactdesc">hxco</span>
+            <p class=contacttitle>---------------Github--------------- </p>
+            <span class="contactdesc">Aectivist</span>
+            <p class=contactdesc>Feel free to reach me any time!</p>
           
       </div>
     </div>
-      <h2 class="contacttitle">Contact Me!</h2>
-      <li class=contactdesc>Email: </span>
-      <a href="mailto: alivessteam@gmail.com" class="contactdesc">alivessteam@gmail.com</a>
-      <li class=contactdesc>Discord: </span>
-      <span class="contactdesc">43c7</span>
-      <li class=contactdesc>Instagram: </span>
-      <span class="contactdesc">tyvernox</span>
-      <li class=contactdesc>Github: </span>
-      <span class="contactdesc">Aectivist</span>
-      <p class=contactdesc>Feel free to reach me any time!</p>
-  </div></footer>
-    
-
-    </div>
+      
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         // Ensure the DOM is fully loaded before executing the script
