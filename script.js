@@ -17,7 +17,7 @@ document.querySelector('.loading-mask-container').appendChild(loadingRenderer.do
 let loadingMask;
 const loadingMaskLoader = new GLTFLoader();
 loadingMaskLoader.load(
-  'models/joker_mask_persona_5/scene.gltf',
+  'models/joker_mask_persona_5/scene.gltf', // Verify this path
   function (gltf) {
     loadingMask = gltf.scene;
     loadingMask.scale.set(1, 1, 1);
@@ -38,6 +38,10 @@ loadingMaskLoader.load(
     const loadingDirectionalLight = new THREE.DirectionalLight(0x7b0ab0, 4);
     loadingDirectionalLight.position.set(0, 1, 0.2);
     loadingScene.add(loadingAmbientLight, loadingDirectionalLight);
+  },
+  undefined,
+  function (error) {
+    console.error('An error happened while loading the model:', error);
   }
 );
 
@@ -94,7 +98,7 @@ const loader = new GLTFLoader();
 
 //Load the file
 loader.load(
-  `models/japanese_street_at_night/scene.gltf`,
+  'models/japanese_street_at_night/scene.gltf', // Verify this path
   function (gltf) {
     object = gltf.scene;
     
@@ -128,7 +132,7 @@ document.getElementById("container3D").appendChild(renderer.domElement);
 camera.position.y = 2
 
 const rgbeLoader = new RGBELoader();
-rgbeLoader.load('path_to_hdri.hdr', (texture) => {
+rgbeLoader.load('path_to_hdri.hdr', (texture) => { // Verify this path
     texture.mapping = THREE.EquirectangularReflectionMapping;
     scene.environment = texture; // Set environment lighting
     scene.background = texture;  // Optional: Use HDRI as a background
@@ -239,7 +243,13 @@ const tablinks = document.querySelectorAll('.tablinks');
 tablinks.forEach(tablink => {
     tablink.addEventListener('mouseenter', () => {
         hoverSound.currentTime = 0; // Restart sound if already playing
-        hoverSound.play();
+        hoverSound.play().catch(error => {
+            if (error.name === 'NotAllowedError') {
+                console.log('Audio play was prevented. User interaction is required.');
+            } else {
+                console.error('Audio play error:', error);
+            }
+        });
     });
 });
 
