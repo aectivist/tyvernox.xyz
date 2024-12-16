@@ -241,7 +241,6 @@ tablinks.forEach(tablink => {
     });
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const hiddenElements = document.querySelectorAll(".hidden");
 
@@ -257,22 +256,27 @@ document.addEventListener("DOMContentLoaded", () => {
   hiddenElements.forEach((el) => observer.observe(el));
 });
 
-document.getElementById("guestbook-form").addEventListener("submit", function (event) {
-  event.preventDefault(); // Prevent form submission
+document.addEventListener("DOMContentLoaded", () => {
+  const guestbookForm = document.getElementById("guestbook-form");
+  if (guestbookForm) {
+    guestbookForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent form submission
 
-  // Get input values
-  const name = document.getElementById("name").value.trim();
-  const message = document.getElementById("message").value.trim();
+      // Get input values
+      const name = document.getElementById("name").value.trim();
+      const message = document.getElementById("message").value.trim();
 
-  if (name && message) {
-    // Create a new list item for the message
-    const messageItem = document.createElement("li");
-    messageItem.innerHTML = `<strong>${name}</strong>: ${message}`;
-    
-    // Append the message to the message list
-    document.getElementById("message-list").appendChild(messageItem);
+      if (name && message) {
+        // Create a new list item for the message
+        const messageItem = document.createElement("li");
+        messageItem.innerHTML = `<strong>${name}</strong>: ${message}`;
+        
+        // Append the message to the message list
+        document.getElementById("message-list").appendChild(messageItem);
 
-    // Clear the form
-    document.getElementById("guestbook-form").reset();
+        // Clear the form
+        document.getElementById("guestbook-form").reset();
+      }
+    });
   }
 });
