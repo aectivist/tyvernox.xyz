@@ -99,7 +99,7 @@ let objToRender = 'japanese_street_at_night';
 //Instantiate a loader for the .gltf file
 const loader = new GLTFLoader();
 
-//Load the file
+//Handle GLTFLoader warnings for custom UV sets
 loader.load(
   'https://www.tyvernox.xyz/models/japanese_street_at_night/scene.gltf', // Ensure this path is correct and not causing a redirect loop
   function (gltf) {
@@ -110,6 +110,19 @@ loader.load(
       if (child.isMesh) {
         child.material.emissive = new THREE.Color(0x2a0845);
         child.material.emissiveIntensity = 0.1; // Reduced from 0.2
+        // Handle custom UV sets
+        if (child.material.metalnessMap) {
+          child.material.metalnessMap.channel = 'r'; // Use red channel
+        }
+        if (child.material.roughnessMap) {
+          child.material.roughnessMap.channel = 'g'; // Use green channel
+        }
+        if (child.material.normalMap) {
+          child.material.normalMap.channel = 'b'; // Use blue channel
+        }
+        if (child.material.emissiveMap) {
+          child.material.emissiveMap.channel = 'a'; // Use alpha channel
+        }
       }
     });
     
@@ -136,6 +149,7 @@ document.getElementById("container3D").appendChild(renderer.domElement);
 
 camera.position.y = 2
 
+//Correct the HDRI path
 const rgbeLoader = new RGBELoader();
 rgbeLoader.load('https://www.tyvernox.xyz/path_to_hdri.hdr', (texture) => { // Ensure this path is correct
     texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -143,6 +157,9 @@ rgbeLoader.load('https://www.tyvernox.xyz/path_to_hdri.hdr', (texture) => { // E
     scene.background = texture;  // Optional: Use HDRI as a background
 }, undefined, (error) => {
     console.error('An error happened while loading the HDRI:', error);
+    if (error.target && error.target.status === 0) {
+        console.error('CORS issue or network error.');
+    }
 });
 
 // Modified lighting setup for more dramatic Persona-like atmosphere
