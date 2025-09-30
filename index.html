@@ -87,31 +87,11 @@
     </div>
       
     <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        // Ensure the DOM is fully loaded before executing the script
-        const guestbookForm = document.getElementById("guestbook-form");
-        if (guestbookForm) {
-          guestbookForm.addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent form submission
+    //gets the input here
+     var textinput = document.getElementById("user-input")[0];
 
-            // Get input values
-            const name = document.getElementById("name").value.trim();
-            const message = document.getElementById("message").value.trim();
+      var sendingbuttontooutputstuff 
 
-            if (name && message) {
-              // Create a new list item for the message
-              const messageItem = document.createElement("li");
-              messageItem.innerHTML = `<strong>${name}</strong>: ${message}`;
-              
-              // Append the message to the message list
-              document.getElementById("message-list").appendChild(messageItem);
-
-              // Clear the form
-              document.getElementById("guestbook-form").reset();
-            }
-          });
-        }
-      });
     </script>
     <script type="module" src="script.js"></script> <!-- Ensure this path is correct -->
   </body>
